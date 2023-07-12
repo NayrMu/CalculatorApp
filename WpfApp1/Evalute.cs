@@ -9,11 +9,11 @@ public class Evaluate
 	//Goes through the text and evlautates it
 
 	string[] parsableText;
-	string[] ConvertExpression()
+	string[] ConvertExpression(string output)
 	{
 		//System.Diagnostics.Debug.WriteLine(SharedData.outputText);
 		string operators = @"([+/*/\/^/-])";
-        string[] oldParsableText = Regex.Split(SharedData.outputText, operators);
+        string[] oldParsableText = Regex.Split(output, operators);
         if (oldParsableText[0] == "")
 		{
 			parsableText = new string[oldParsableText.Length - 1];
@@ -32,7 +32,7 @@ public class Evaluate
 
 	public void Eval()
 	{
-		SharedData.outputText = EvaluateExpression(ConvertExpression());
+		SharedData.outputText = SharedData.historyText = EvaluateExpression(ConvertExpression(SharedData.outputText));
 		SharedData.startNewEx = true;
 	}
 	string EvaluateExpression(string[] expression)
@@ -53,15 +53,16 @@ public class Evaluate
 			{
 				if (PEMDAS(expression[i], opType) || opType == "")
 				{
-					//System.Diagnostics.Debug.WriteLine("info" + opType + operatorIndex);
-					Negative(expression[i], i, ref expression);
-                    opType = expression[i];
-					operatorIndex = i;
-					//System.Diagnostics.Debug.WriteLine(SharedData.outputText);
                     foreach (string s in expression)
                     {
-						//System.Diagnostics.Debug.WriteLine(s);
+                        System.Diagnostics.Debug.WriteLine(s);
                     }
+                    Negative(expression[i], i, ref expression);
+                    opType = expression[i];
+					operatorIndex = i;
+                    System.Diagnostics.Debug.WriteLine("info" + opType + operatorIndex);
+                    //System.Diagnostics.Debug.WriteLine(SharedData.outputText);
+                    
                 }
 			}
             foreach (string s in expression)
@@ -78,7 +79,7 @@ public class Evaluate
 
 			expression = expression.Where(n => n != "").ToArray();
 
-			return EvaluateExpression(expression);
+            return EvaluateExpression(expression);
 		}
 		System.Diagnostics.Debug.WriteLine("also?"+result);
 	}
@@ -106,7 +107,7 @@ public class Evaluate
     }
     bool PEMDAS(string op1, string op2)
     {
-		string[] opTypes = { "+", "/", "*", "^", "-" };
+		string[] opTypes = { "-", "+", "/", "*", "^" };
 		if (Array.IndexOf(opTypes, op1) > Array.IndexOf(opTypes, op2))
 		{
 			return true;
@@ -117,6 +118,7 @@ public class Evaluate
 		}
 
         return false;
+		
     }
 	void Negative(string opType, int opIndex, ref string[] arr)
 	{
@@ -135,12 +137,25 @@ public class Evaluate
             }
 
         }
-		else if (opType == "-" && arr[opIndex - 1] == "-")
+        /*else if (opType == "-")
+        {
+            double num = Convert.ToDouble(arr[opIndex + 1]);
+            arr[opIndex + 1] = (num * -1).ToString();
+            arr[opIndex] = "+";
+            foreach (string s in arr)
+            {
+                //System.Diagnostics.Debug.WriteLine(s);
+            }
+        }
+		*/
+    }
+	void trialNegative(string opType, int opIndex, ref string[] arr)
+	{
+		if (opType == "-")
 		{
-			arr[opIndex] = "+";
-			arr[opIndex - 1] = "";
-			arr = arr.Where(x => x != "").ToArray();
-
+			double num = Convert.ToDouble(arr[opIndex + 1]);
+			arr[opIndex + 1] = (num * -1).ToString();
+			arr[opIndex] = "";
 		}
 	}
 

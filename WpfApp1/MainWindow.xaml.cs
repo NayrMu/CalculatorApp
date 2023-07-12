@@ -33,7 +33,7 @@ namespace WpfApp1
 
         public TestClass test;
         public Evaluate eval;
-        string[] ops = {"+", "-", "*", "/", "^"};
+        string ops = @"\+\-\*\/^";
         public MainWindow()
         {
             InitializeComponent();
@@ -44,10 +44,10 @@ namespace WpfApp1
 
         private async void ButtonClick(object sender, RoutedEventArgs e)
         {
+            string output = SharedData.outputText;
             Button buttonClicked = (Button)sender;
             string buttonText = buttonClicked.Content.ToString();
-
-            if (!(Array.IndexOf(ops, buttonText) > -1 && Convert.ToString(SharedData.outputText[SharedData.outputText.Length - 1]) == buttonText)) //check if same operator button clicked twice
+            if (!(ops.Contains(buttonText) && ops.Contains(output[output.Length - 1]))) //check if same operator button clicked twice
             {
                 test.doSomething(buttonText, OutputWindow);
             }
@@ -58,6 +58,7 @@ namespace WpfApp1
             Button buttonEqual = (Button)sender;
             eval.Eval();
             OutputWindow.Text = SharedData.outputText;
+            History.Text = SharedData.historyText;
         }
         private void ClearClick(object sender, RoutedEventArgs e)
         {
