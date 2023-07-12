@@ -46,7 +46,7 @@ namespace WpfApp1
             Button buttonClicked = (Button)sender;
             string buttonText = buttonClicked.Content.ToString();
 
-            if (Array.IndexOf(ops, buttonText) > -1 && Convert.ToString(SharedData.outputText[SharedData.outputText.Length - 1]) == buttonText)
+            if (Array.IndexOf(ops, buttonText) > -1 && Convert.ToString(SharedData.outputText[SharedData.outputText.Length - 1]) == buttonText) //check if same operator button clicked twice
             {
                 buttonClicked.Background = Brushes.Red;
                 System.Threading.Thread.Sleep(500);
