@@ -30,15 +30,14 @@ namespace WpfApp1
      */
     public partial class MainWindow : Window
     {
-
-        public TestClass test;
+        public ButtonClass button;
         public Evaluate eval;
         string ops = @"\+\-\*\/^";
         public MainWindow()
         {
             InitializeComponent();
             ResizeMode = ResizeMode.NoResize;
-            test = new TestClass();
+            button = new ButtonClass();
             eval = new Evaluate();
         }
 
@@ -49,7 +48,7 @@ namespace WpfApp1
             string buttonText = buttonClicked.Content.ToString();
             if (!(ops.Contains(buttonText) && ops.Contains(output[output.Length - 1]))) //check if same operator button clicked twice
             {
-                test.doSomething(buttonText, OutputWindow);
+                button.doSomething(buttonText, OutputWindow);
             }
         }
 
@@ -66,5 +65,34 @@ namespace WpfApp1
             OutputWindow.Text = SharedData.outputText;
             SharedData.startNewEx = true;
         }
+        private void HistClick(object sender, RoutedEventArgs e)
+        {
+            if (ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1]))
+            {
+                SharedData.outputText += SharedData.historyText;
+                OutputWindow.Text = SharedData.outputText;
+            }
+            else
+            {
+                SharedData.outputText = SharedData.historyText;
+                OutputWindow.Text = SharedData.outputText;
+            }
+        }
+        private void VarClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            string buttonText = button.Content.ToString();
+            if (ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1]))
+            {
+                SharedData.outputText += SharedData.varMap[buttonText].ToString();
+                OutputWindow.Text = SharedData.outputText;
+            }
+            else
+            {
+                SharedData.outputText = SharedData.varMap[buttonText].ToString();
+                OutputWindow.Text = SharedData.outputText;
+            }
+        }
+
     }
 }

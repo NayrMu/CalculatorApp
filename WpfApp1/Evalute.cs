@@ -23,10 +23,6 @@ public class Evaluate
 		{
 			parsableText = oldParsableText;
 		}
-        foreach (string s in parsableText)
-		{
-			//System.Diagnostics.Debug.WriteLine("here" + s);
-		}
         return parsableText;
 	}
 
@@ -42,7 +38,6 @@ public class Evaluate
 		if (exLen == 1)
 		{
 			result = expression[0];
-			System.Diagnostics.Debug.WriteLine("result is" + result);
 			return result;
 		}
 		else
@@ -53,22 +48,11 @@ public class Evaluate
 			{
 				if (PEMDAS(expression[i], opType) || opType == "")
 				{
-                    foreach (string s in expression)
-                    {
-                        System.Diagnostics.Debug.WriteLine(s);
-                    }
                     Negative(expression[i], i, ref expression);
                     opType = expression[i];
 					operatorIndex = i;
-                    System.Diagnostics.Debug.WriteLine("info" + opType + operatorIndex);
-                    //System.Diagnostics.Debug.WriteLine(SharedData.outputText);
-                    
                 }
 			}
-            foreach (string s in expression)
-            {
-                //System.Diagnostics.Debug.WriteLine(s);
-            }
             double prevNum = Convert.ToDouble(expression[operatorIndex - 1]);
 			double nextNum = Convert.ToDouble(expression[operatorIndex + 1]);
 			result = Convert.ToString(performOperation(prevNum, opType, nextNum));
@@ -81,7 +65,6 @@ public class Evaluate
 
             return EvaluateExpression(expression);
 		}
-		System.Diagnostics.Debug.WriteLine("also?"+result);
 	}
 	double performOperation(double a, string op, double b)
     {
@@ -129,25 +112,8 @@ public class Evaluate
 			newArr[0] = "0";
             Array.Clear(arr);
 			Array.Resize(ref arr, newArr.Length);
-			//System.Diagnostics.Debug.WriteLine("newarray" + newArr);
             arr = newArr;
-            foreach (string s in arr)
-            {
-                System.Diagnostics.Debug.WriteLine(s);
-            }
-
         }
-        /*else if (opType == "-")
-        {
-            double num = Convert.ToDouble(arr[opIndex + 1]);
-            arr[opIndex + 1] = (num * -1).ToString();
-            arr[opIndex] = "+";
-            foreach (string s in arr)
-            {
-                //System.Diagnostics.Debug.WriteLine(s);
-            }
-        }
-		*/
     }
 	void trialNegative(string opType, int opIndex, ref string[] arr)
 	{

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Controls;
 
-public class TestClass
+public class ButtonClass
 {
 	string[] ops = {"+", "-",  "*", "/", "^"};
 	public void doSomething(string buttonText, TextBlock outputLocation)
