@@ -33,12 +33,14 @@ namespace WpfApp1
         public ButtonClass button;
         public Evaluate eval;
         string ops = @"\+\-\*\/^";
+        public SharedData sData;
         public MainWindow()
         {
             InitializeComponent();
             ResizeMode = ResizeMode.NoResize;
             button = new ButtonClass();
             eval = new Evaluate();
+            sData = new SharedData();
         }
 
         private async void ButtonClick(object sender, RoutedEventArgs e)
@@ -82,16 +84,35 @@ namespace WpfApp1
         {
             Button button = (Button)sender;
             string buttonText = button.Content.ToString();
-            if (ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1]))
+            if (SharedData.setMode == false)
             {
-                SharedData.outputText += SharedData.varMap[buttonText].ToString();
-                OutputWindow.Text = SharedData.outputText;
+                if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+                {
+                    SharedData.outputText = SharedData.varMap[buttonText].ToString();
+                    OutputWindow.Text = SharedData.outputText;
+                }
+                else
+                {
+                    SharedData.outputText += SharedData.varMap[buttonText].ToString();
+                    OutputWindow.Text = SharedData.outputText;
+                }
             }
             else
             {
-                SharedData.outputText = SharedData.varMap[buttonText].ToString();
-                OutputWindow.Text = SharedData.outputText;
+                SharedData.varMap[buttonText] = SharedData.historyText;
+                SharedData.setMode = false;
             }
+        }
+        private void SetClick(object sender, RoutedEventArgs e)
+        {
+            SharedData.setMode = true;
+        }
+        private void SqrtClick(object sender, RoutedEventArgs e)
+        {
+            SharedData.outputText += "√";
+            OutputWindow.Text = SharedData.outputText;
+            SharedData.startNewEx = false;
+
         }
 
     }
