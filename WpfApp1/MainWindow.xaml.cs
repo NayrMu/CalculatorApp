@@ -80,6 +80,39 @@ namespace WpfApp1
                 OutputWindow.Text = SharedData.outputText;
             }
         }
+
+        private void SqrtClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            string buttonText = button.Content.ToString();
+            if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+            {
+                SharedData.outputText = buttonText;
+                OutputWindow.Text = SharedData.outputText;
+                SharedData.startNewEx = false;
+            }
+            else
+            {
+                SharedData.outputText += buttonText;
+                OutputWindow.Text = SharedData.outputText;
+            }
+        }
+        private void LogClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            string buttonText = button.Content.ToString();
+            if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+            {
+                SharedData.outputText = buttonText;
+                OutputWindow.Text = SharedData.outputText;
+                SharedData.startNewEx = false;
+            }
+            else
+            {
+                SharedData.outputText += buttonText;
+                OutputWindow.Text = SharedData.outputText;
+            }
+        }
         private void VarClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -107,13 +140,5 @@ namespace WpfApp1
         {
             SharedData.setMode = true;
         }
-        private void SqrtClick(object sender, RoutedEventArgs e)
-        {
-            SharedData.outputText += "√";
-            OutputWindow.Text = SharedData.outputText;
-            SharedData.startNewEx = false;
-
-        }
-
     }
 }
