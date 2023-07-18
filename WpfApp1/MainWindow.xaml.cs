@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -42,13 +43,15 @@ namespace WpfApp1
             button = new ButtonClass();
             eval = new Evaluate();
             sData = new SharedData();
+            SharedData.outputText = "0";
         }
 
-        private async void ButtonClick(object sender, RoutedEventArgs e)
+        private void ButtonClick(object sender, RoutedEventArgs e)
         {
             string output = SharedData.outputText;
             Button buttonClicked = (Button)sender;
             string buttonText = buttonClicked.Content.ToString();
+            
             if (!(ops.Contains(buttonText) && ops.Contains(output[output.Length - 1]))) //check if same operator button clicked twice
             {
                 button.doSomething(buttonText, OutputWindow);
@@ -70,15 +73,18 @@ namespace WpfApp1
         }
         private void HistClick(object sender, RoutedEventArgs e)
         {
-            if (ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1]))
+            if (SharedData.outputText.Length + SharedData.historyText.Length < 17)
             {
-                SharedData.outputText += SharedData.historyText;
-                OutputWindow.Text = SharedData.outputText;
-            }
-            else
-            {
-                SharedData.outputText = SharedData.historyText;
-                OutputWindow.Text = SharedData.outputText;
+                if (ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1]))
+                {
+                    SharedData.outputText += SharedData.historyText;
+                    OutputWindow.Text = SharedData.outputText;
+                }
+                else
+                {
+                    SharedData.outputText = SharedData.historyText;
+                    OutputWindow.Text = SharedData.outputText;
+                }
             }
         }
 
@@ -86,55 +92,64 @@ namespace WpfApp1
         {
             Button button = (Button)sender;
             string buttonText = button.Content.ToString();
-            if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+            if (SharedData.outputText.Length < 16)
             {
-                SharedData.outputText = buttonText;
-                OutputWindow.Text = SharedData.outputText;
-                SharedData.startNewEx = false;
-            }
-            else
-            {
-                SharedData.outputText += buttonText;
-                OutputWindow.Text = SharedData.outputText;
+                if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+                {
+                    SharedData.outputText = buttonText;
+                    OutputWindow.Text = SharedData.outputText;
+                    SharedData.startNewEx = false;
+                }
+                else
+                {
+                    SharedData.outputText += buttonText;
+                    OutputWindow.Text = SharedData.outputText;
+                }
             }
         }
         private void LogClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             string buttonText = button.Content.ToString();
-            if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+            if (SharedData.outputText.Length < 15)
             {
-                SharedData.outputText = buttonText;
-                OutputWindow.Text = SharedData.outputText;
-                SharedData.startNewEx = false;
-            }
-            else
-            {
-                SharedData.outputText += buttonText;
-                OutputWindow.Text = SharedData.outputText;
+                if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+                {
+                    SharedData.outputText = buttonText;
+                    OutputWindow.Text = SharedData.outputText;
+                    SharedData.startNewEx = false;
+                }
+                else
+                {
+                    SharedData.outputText += buttonText;
+                    OutputWindow.Text = SharedData.outputText;
+                }
             }
         }
         private void VarClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             string buttonText = button.Content.ToString();
-            if (SharedData.setMode == false)
+            if (SharedData.outputText.Length + SharedData.historyText.Length < 17)
             {
-                if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+                if (SharedData.setMode == false)
                 {
-                    SharedData.outputText = SharedData.varMap[buttonText].ToString();
-                    OutputWindow.Text = SharedData.outputText;
+                    if (SharedData.startNewEx == true || !(ops.Contains(SharedData.outputText[SharedData.outputText.Length - 1])))
+                    {
+                        SharedData.outputText = SharedData.varMap[buttonText].ToString();
+                        OutputWindow.Text = SharedData.outputText;
+                    }
+                    else
+                    {
+                        SharedData.outputText += SharedData.varMap[buttonText].ToString();
+                        OutputWindow.Text = SharedData.outputText;
+                    }
                 }
                 else
                 {
-                    SharedData.outputText += SharedData.varMap[buttonText].ToString();
-                    OutputWindow.Text = SharedData.outputText;
+                    SharedData.varMap[buttonText] = SharedData.historyText;
+                    SharedData.setMode = false;
                 }
-            }
-            else
-            {
-                SharedData.varMap[buttonText] = SharedData.historyText;
-                SharedData.setMode = false;
             }
         }
         private void SetClick(object sender, RoutedEventArgs e)
@@ -175,6 +190,23 @@ namespace WpfApp1
             this.Resources["PlateBorderColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.plateBorderColor));
             this.Resources["ScreenColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.screenColor));
             this.Resources["ScreenTextColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.screenTextColor));
+        }
+        private void BackSpaceClick(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(SharedData.outputText);
+            if (SharedData.outputText != "0")
+            {
+                System.Diagnostics.Debug.WriteLine(SharedData.outputText);
+                SharedData.outputText = SharedData.outputText.Remove((SharedData.outputText.Length)-1);
+                System.Diagnostics.Debug.WriteLine(SharedData.outputText);
+                OutputWindow.Text = SharedData.outputText;
+            }
+            if (SharedData.outputText == "")
+            {
+                SharedData.outputText = "0";
+                OutputWindow.Text = SharedData.outputText;
+                SharedData.startNewEx = true;
+            }
         }
     }
 }

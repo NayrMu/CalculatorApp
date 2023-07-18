@@ -1,0 +1,9 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="MSIPackage" Manufacturer="Muncy Madhouse" Version="1.0.0.0" UpgradeCode="5aaf2d4a-f392-49ea-b693-0014dc66d54f">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="ExampleComponents" />
+    </Feature>
+  </Package>
+</Wix>

@@ -1,0 +1,18 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="CalculatorComponents" Directory="INSTALLFOLDER">
+      <Component>
+        <File Source="C:\Users\rkmun\source\repos\WpfApp1\WpfApp1\Dependencies\WpfApp1.dll" />
+      </Component>
+	  <Component>
+		<File Source="C:\Users\rkmun\source\repos\WpfApp1\WpfApp1\Dependencies\WpfApp1.exe" />
+	  </Component>
+	  <Component>
+		<File Source="C:\Users\rkmun\source\repos\WpfApp1\WpfApp1\Dependencies\WpfApp1.runtimeconfig.json" />
+	  </Component>
+	  <Component>
+		<File Source="C:\Users\rkmun\source\repos\WpfApp1\WpfApp1\Dependencies\WpfApp1.deps.json" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

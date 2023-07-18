@@ -5,7 +5,7 @@ using System.Windows.Controls;
 public class SharedData
 {
     //holds shared variables
-    public static string outputText;
+    public static string outputText = "0";
     public static string historyText;
     public static bool startNewEx;
     public static string varA;
@@ -42,8 +42,8 @@ public class SharedData
         varMap.Add("var b", varB);
         varMap.Add("var x", varX);
         varMap.Add("var y", varY);
-        varMap.Add("e", "2.718281828459");
-        varMap.Add("pi", "3.1415926535897932");
+        varMap.Add("e", "2.718282");
+        varMap.Add("pi", "3.1415927");
     }
 	public void OldSchoolLook()
 	{

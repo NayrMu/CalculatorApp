@@ -137,7 +137,8 @@
             <Rectangle HorizontalAlignment="Left" Height="450" Margin="5,145,0,0" Stroke="{DynamicResource PlateBorderColor}" StrokeThickness="2" Fill="{DynamicResource PlateColor}" RadiusX="5" RadiusY="5" VerticalAlignment="Top" Width="420"/>
 
             <Button Style="{DynamicResource RoundButtonStyle}" Content="." HorizontalAlignment="Left" Margin="260,510,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="ButtonClick"/>
-            <Button Style="{DynamicResource RoundButtonStyle}" Content = "0" HorizontalAlignment="Left" Margin="100,510,0,0" VerticalAlignment="Top" Height="75" Width="155" Click="ButtonClick"/>
+            <Button Style="{DynamicResource RoundButtonStyle}" Content="0" HorizontalAlignment="Left" Margin="100,510,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="ButtonClick"/>
+            <Button Style="{DynamicResource RoundButtonStyle}" Content="←" HorizontalAlignment="Left" Margin="180,510,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="BackSpaceClick"/>
             <Button Style="{DynamicResource RoundButtonStyle}" Content="1" HorizontalAlignment="Left" Margin="100,430,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="ButtonClick"/>
             <Button Style="{DynamicResource RoundButtonStyle}" Content="2" HorizontalAlignment="Left" Margin="180,430,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="ButtonClick"/>
             <Button Style="{DynamicResource RoundButtonStyle}" Content="3" HorizontalAlignment="Left" Margin="260,430,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="ButtonClick"/>

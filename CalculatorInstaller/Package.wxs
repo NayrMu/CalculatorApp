@@ -1,0 +1,10 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="CalculatorInstaller" Manufacturer="Muncy Madhouse" Version="1.0.0.0" UpgradeCode="dff7c39f-a58f-4f86-a36a-00c9ca89296e">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+    
+    <Feature Id="Main">
+      <ComponentRef Id="DesktopShortcut" />
+	  <ComponentGroupRef Id="CalculatorComponents"/>
+    </Feature>
+  </Package>
+</Wix>
