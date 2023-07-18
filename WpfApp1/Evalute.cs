@@ -13,7 +13,7 @@ public class Evaluate
 	string[] ConvertExpression(string output)
 	{
 		//System.Diagnostics.Debug.WriteLine(SharedData.outputText);
-		string operators = @"([+/*/\/^/√/-]|ln)";
+		string operators = @"([+\*\÷\^\√\-]|ln)";
         string[] oldParsableText = Regex.Split(output, operators);
         if (oldParsableText[0] == "")
 		{
@@ -89,7 +89,7 @@ public class Evaluate
 			case "*":
 				return a * b;
 				break;
-			case "/":
+			case "÷":
 				return a / b;
 				break;
 			case "^":
@@ -110,7 +110,7 @@ public class Evaluate
 	{
 		// true if op1 has higher priority
 		string[] opTypes1 = { "^", "√", "ln" };
-		string[] opTypes2 = { "/", "*" };
+		string[] opTypes2 = { "÷", "*" };
 		string[] opTypes3 = { "-", "+" };
 		int op1OGIndex = Array.IndexOf(arr, op1);
 		int op2OGIndex = Array.IndexOf(arr, op2);

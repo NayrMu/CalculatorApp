@@ -14,10 +14,20 @@ public class SharedData
     public static string varY;
     public static Dictionary<string, string> varMap = new Dictionary<string, string>();
     public static bool setMode = false;
-    string shellColor;
-    string buttonColor;
-    string buttonHoverColor;
-    string screenColor;
+    public string shellColor;
+    public string buttonColor;
+    public string buttonPressedColor;
+    public string screenColor;
+    public string screenTextColor;
+    public string specialButtonColor;
+    public string specialButtonPressedColor;
+    public string varButtonColor;
+    public string varButtonPressedColor;
+    public string buttonTextColor;
+    public string otherButtonTextColor;
+    public string plateColor;
+    public string plateBorderColor;
+    public string buttonSelectColor;
     static SharedData()
 	{
         outputText = "";
@@ -35,8 +45,55 @@ public class SharedData
         varMap.Add("e", "2.718281828459");
         varMap.Add("pi", "3.1415926535897932");
     }
-	public void ClassicLook()
+	public void OldSchoolLook()
 	{
-
-	}
+        shellColor = "#294542";
+        buttonColor = "#404040";
+        buttonPressedColor = "#141414";
+        screenColor = "#2c704d";
+        screenTextColor = "#10b05d";
+        specialButtonColor = "#ba564e";
+        specialButtonPressedColor = "#803630";
+        varButtonColor = "#bfb25e";
+        varButtonPressedColor = "#918837";
+        buttonTextColor = "White";
+        otherButtonTextColor = "White";
+        plateColor = "#a6a59f";
+        plateBorderColor = "Black";
+        buttonSelectColor = "White";
+    }
+    public void ClassicLook()
+    {
+        shellColor = "White";
+        buttonColor = "LightGray";
+        buttonPressedColor = "Gray";
+        screenColor = "PowderBlue";
+        screenTextColor = "Black";
+        specialButtonColor = "PowderBlue";
+        specialButtonPressedColor = "#8ab0b5";
+        varButtonColor = "PowderBlue";
+        varButtonPressedColor = "#8ab0b5";
+        buttonTextColor = "Black";
+        otherButtonTextColor = "Black";
+        plateColor = "White";
+        plateBorderColor = "White";
+        buttonSelectColor = "Blue";
+    }
+    public void DarkLook()
+    {
+        shellColor = "#424242";
+        buttonColor = "#0f0f0f";
+        buttonPressedColor = "#0a0a0a";
+        screenColor = "#0f0f0f";
+        screenTextColor = "White";
+        specialButtonColor = "#424242";
+        specialButtonPressedColor = "#2b2b2b";
+        varButtonColor = "#424242";
+        varButtonPressedColor = "#2b2b2b";
+        buttonTextColor = "White";
+        otherButtonTextColor = "Black";
+        plateColor = "#292929";
+        plateBorderColor = "Black";
+        buttonSelectColor = "White";
+    }
 }

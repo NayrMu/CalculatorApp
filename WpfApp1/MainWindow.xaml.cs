@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,13 +27,13 @@ namespace WpfApp1
      * a basic calculator with some basic ui
      * a learning project
      * 
-     * last touched 07/10/2023 - was going to add buttons for other operators
+     * last touched 07/16/2023 was working on style changes, am going to try different "pages" each their their own style settings
      */
     public partial class MainWindow : Window
     {
         public ButtonClass button;
         public Evaluate eval;
-        string ops = @"\+\-\*\/^";
+        string ops = @"\+\-\*\÷^";
         public SharedData sData;
         public MainWindow()
         {
@@ -139,6 +140,41 @@ namespace WpfApp1
         private void SetClick(object sender, RoutedEventArgs e)
         {
             SharedData.setMode = true;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = (ComboBox)sender;
+            var currentSelection = comboBox.SelectedIndex;
+            System.Diagnostics.Debug.WriteLine("Made it and the current selection is written as " + currentSelection);
+            if (currentSelection == 0)
+            {
+                sData.ClassicLook();
+            }
+            else if (currentSelection == 1)
+            {
+                sData.DarkLook();
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Made it and the current selection is written as " + currentSelection);
+                sData.OldSchoolLook();
+            }
+
+            this.Resources["ButtonColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.buttonColor));
+            this.Resources["ButtonPressedColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.buttonPressedColor));
+            this.Resources["SpecialButtonColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.specialButtonColor));
+            this.Resources["SpecialButtonPressedColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.specialButtonPressedColor));
+            this.Resources["VarButtonColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.varButtonColor));
+            this.Resources["VarButtonPressedColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.varButtonPressedColor));
+            this.Resources["ButtonTextColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.buttonTextColor));
+            this.Resources["OtherButtonColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.otherButtonTextColor));
+            this.Resources["PlateColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.plateColor));
+            this.Resources["ShellColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.shellColor));
+            this.Resources["ButtonSelectColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.buttonSelectColor));
+            this.Resources["PlateBorderColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.plateBorderColor));
+            this.Resources["ScreenColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.screenColor));
+            this.Resources["ScreenTextColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(sData.screenTextColor));
         }
     }
 }
